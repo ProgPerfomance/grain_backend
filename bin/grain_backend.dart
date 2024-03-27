@@ -12,7 +12,7 @@ void main(List<String> arguments)async {
       port: 3306,
       userName: 'root',
       password: '1234567890',
-      databaseName: 'autoapp');
+      databaseName: 'grade');
   await sql.connect(timeoutMs: 99999999999);
   Router router = Router();
   router.get('/teams', (Request request) async{
