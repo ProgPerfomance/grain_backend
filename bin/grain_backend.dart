@@ -23,6 +23,7 @@ void main(List<String> arguments)async {
     var json = await request.readAsString();
     var data = await jsonDecode(json);
     createAccount(sql, name: data['name'], email: data['email'], password: data['password'], type: data['type']);
+    return Response.ok('created');
   });
   serve(router, '63.251.122.116', 2308);
 }

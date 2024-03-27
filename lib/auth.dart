@@ -7,5 +7,11 @@ Future<void> createAccount(MySQLConnection sql,{
   required type,
 
 }) async{
- await sql.execute("insert into users (id, name, email, password, rules,games,wins,score) values (0, '$name', '$email', '$password', $type, 0,0,0)");
+  var resul = await sql.execute(
+    "SELECT * FROM users",
+    {},
+  );
+  String id = resul.rows.last.assoc()['id'] as String;
+  int id_int = int.parse(id);
+ await sql.execute("insert into users (id, name, email, password, rules,games,wins,score) values (${id_int+1}, '$name', '$email', '$password', $type, 0,0,0)");
 }
