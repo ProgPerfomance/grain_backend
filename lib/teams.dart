@@ -16,5 +16,5 @@ Future<List> getTeams(MySQLConnection sql) async {
     );
   }
 
-  return teams;
+  return List.from(teams.reversed);
 }

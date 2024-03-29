@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:grain_backend/auth.dart';
+import 'package:grain_backend/questions.dart';
 import 'package:grain_backend/teams.dart';
 import 'package:mysql_client/mysql_client.dart';
 import 'package:shelf/shelf.dart';
@@ -25,5 +26,9 @@ void main(List<String> arguments)async {
     createAccount(sql, name: data['name'], email: data['email'], password: data['password'], type: data['type']);
     return Response.ok('created');
   });
-  serve(router, '63.251.122.116', 2308);
+  router.get('/questions', (Request request) async {
+    List response = await getQuestions(sql);
+    return Response.ok(jsonEncode(response));
+  });
+  serve(router, '63.251.122.116', 2314);
 }
