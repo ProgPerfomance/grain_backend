@@ -15,6 +15,10 @@ Future<List> getQuestions(MySQLConnection sql) async {
           (index) => {
                 'id': question.rows.toList()[index].assoc()['id'],
                 'q_text': question.rows.toList()[index].assoc()['q_text'],
+            'price':question.rows.toList()[index].assoc()['price'],
+            'time':question.rows.toList()[index].assoc()['qdv'],
+            'answer':question.rows.toList()[index].assoc()['q_answer'],
+            'comment':question.rows.toList()[index].assoc()['q_comment'],
               }),
     });
   }
