@@ -23,5 +23,5 @@ Future<List> getQuestions(MySQLConnection sql) async {
     });
   }
 
-  return List.from(questions.reversed);
+  return List.from(questions);
 }
