@@ -26,6 +26,18 @@ void main(List<String> arguments)async {
     createAccount(sql, name: data['name'], email: data['email'], password: data['password'], type: data['type']);
     return Response.ok('created');
   });
+  router.post('/questions', (Request request) async {
+    var json = await request.readAsString();
+    var data = await jsonDecode(json);
+    await createQuestion(sql: sql, qText: data['q_text'], qAnswer: data['q_answer'], qDelay: data['q_delay'], qComment: data['q_comment'], masterID: data['uid'], price: data['price'], tip: data['tip']);
+    return Response.ok('created');
+  });
+  router.post('/category', (Request request) async {
+    var json = await request.readAsString();
+    var data = await jsonDecode(json);
+    await createCollection(sql: sql, name: data['name']);
+    return Response.ok('created');
+  });
   router.get('/questions', (Request request) async {
     List response = await getQuestions(sql);
     return Response.ok(jsonEncode(response));

@@ -15,13 +15,47 @@ Future<List> getQuestions(MySQLConnection sql) async {
           (index) => {
                 'id': question.rows.toList()[index].assoc()['id'],
                 'q_text': question.rows.toList()[index].assoc()['q_text'],
-            'price':question.rows.toList()[index].assoc()['price'],
-            'time':question.rows.toList()[index].assoc()['qdv'],
-            'answer':question.rows.toList()[index].assoc()['q_answer'],
-            'comment':question.rows.toList()[index].assoc()['q_comment'],
+                'price': question.rows.toList()[index].assoc()['price'],
+                'time': question.rows.toList()[index].assoc()['qdv'],
+                'answer': question.rows.toList()[index].assoc()['q_answer'],
+                'comment': question.rows.toList()[index].assoc()['q_comment'],
               }),
     });
   }
 
   return List.from(questions);
+}
+
+Future<void> createQuestion({
+  required MySQLConnection sql,
+  required qText,
+  required qAnswer,
+  required qDelay,
+  required qComment,
+  required masterID,
+  required price,
+  required tip,
+}) async {
+  var resul = await sql.execute(
+    "SELECT * FROM questions",
+    {},
+  );
+  String id = resul.rows.last.assoc()['id'] as String;
+  int id_int = int.parse(id);
+  sql.execute(
+      "insert into questions (id, q_text, price, qdv, q_answer, q_comment, masterd, tip) values (${id_int + 1}, '$qText', $price, $qDelay, '$qAnswer', '$qComment', $masterID, $tip)");
+}
+
+Future<void> createCollection({
+  required MySQLConnection sql,
+  required name,
+}) async {
+  var resul = await sql.execute(
+    "SELECT * FROM categories",
+    {},
+  );
+  String id = resul.rows.last.assoc()['id'] as String;
+  int id_int = int.parse(id);
+  sql.execute(
+      "insert into categories (id, name) values (${id_int + 1}, '$name')");
 }
