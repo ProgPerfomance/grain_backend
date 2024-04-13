@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:grain_backend/auth.dart';
+import 'package:grain_backend/game.dart';
 import 'package:grain_backend/questions.dart';
 import 'package:grain_backend/teams.dart';
 import 'package:mysql_client/mysql_client.dart';
@@ -36,6 +37,12 @@ void main(List<String> arguments)async {
     var json = await request.readAsString();
     var data = await jsonDecode(json);
     await createCollection(sql: sql, name: data['name']);
+    return Response.ok('created');
+  });
+  router.post('/endGame', (Request request) async {
+    var json = await request.readAsString();
+    var data = await jsonDecode(json);
+    await endGame(sql, team1Id: data['team1_id'], team2Id: data['team2_id'], team3Id: data['team3_id'], team4Id: data['team4_id'], team5Id: data['team5_id'], team1Score: data['team1_score'], team2Score: data['team2_score'], team3Score: data['team3_score'], team4Score: data['team4_score'], team5Score: data['team5_score'], masterId: data['master_id'], winner: data['winner']);
     return Response.ok('created');
   });
   router.get('/questions', (Request request) async {
