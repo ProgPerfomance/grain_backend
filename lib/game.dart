@@ -15,6 +15,12 @@ Future<int> endGame(
   required masterId,
   required winner,
 }) async {
+  team1Score = int.parse(team1Score);
+  team2Score = int.parse(team2Score);
+  team3Score = int.parse(team3Score);
+  team4Score = int.parse(team4Score);
+  team5Score = int.parse(team5Score);
+
   int idInt;
   try {
     var resul = await sql.execute(
