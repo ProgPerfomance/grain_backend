@@ -59,3 +59,21 @@ Future<void> createCollection({
   sql.execute(
       "insert into categories (id, name) values (${id_int + 1}, '$name')");
 }
+
+
+Future<void> useQuest(MySQLConnection sql) async {
+  sql.execute("");
+}
+
+Future<List> getCategories (MySQLConnection sql)async {
+  List collections = [];
+ final response = await sql.execute('select *from categories');
+  for(var item in response.rows) {
+    var data = item.assoc();
+    collections.add({
+      'id': data['id'],
+      'name': data['name'],
+    });
+  }
+  return collections;
+}

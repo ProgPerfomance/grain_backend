@@ -139,8 +139,47 @@ Future<int> endGame(
   return idInt + 1;
 }
 
-Future<List> getTeamGames(id) async {
+Future<List> getTeamGames(MySQLConnection sql,id) async {
   List games = [];
-
+ final response = await sql.execute("select * from game_indexed where team_id");
+ for(var item in response.rows) {
+   final gameRow = await sql.execute("select * from games where id = ${item.assoc()['game_id']}");
+   var gameData = gameRow.rows.first.assoc();
+   var team1Row = await sql.execute("select * from users where id = ${gameData['team1_id']}");
+   var team2Row = await sql.execute("select * from users where id = ${gameData['team1_id']}");
+   var team3;
+   try{
+     var team3Row = await sql.execute("select * from users where id = ${gameData['team1_id']}");
+     team3 = team3Row.rows.first.assoc()['name'];
+   } catch (e){
+     team3 = 'Не играла';
+   }
+   games.add({
+     'id':  gameData['id'],
+     'date_start': gameData['date_start'],
+     'winner_id': gameData['winner_id'],
+     'team1_id': gameData['team1_id'],
+     'team2_id': gameData['team1_id'],
+     'team3_id': gameData['team1_id'],
+     'team4_id': gameData['team1_id'],
+     'team5_id': gameData['team1_id'],
+     'team1_name': team1Row.rows.first.assoc()['name'],
+     'team2_name': team2Row.rows.first.assoc()['name'],
+     'team3_name': gameData['team1_id'],
+     'team4_name': gameData['team1_id'],
+     'team5_name': gameData['team1_id'],
+     'team1_score': gameData['team1_score'],
+     'team2_score': gameData['team2_score'],
+     'team3_score': gameData['team3_score'],
+     'team4_score': gameData['team4_score'],
+     'team5_score': gameData['team5_score'],
+     'master_id': gameData['master_id'],
+   });
+ }
   return games;
 }
+
+
+
+
+// master_id int
