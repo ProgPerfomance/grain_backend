@@ -43,7 +43,7 @@ Future<void> createQuestion({
   String id = resul.rows.last.assoc()['id'] as String;
   int id_int = int.parse(id);
   sql.execute(
-      "insert into questions (id, q_text, price, qdv, q_answer, q_comment, masterd, tip) values (${id_int + 1}, '$qText', $price, $qDelay, '$qAnswer', '$qComment', $masterID, $tip)");
+      "insert into questions (id, q_text, price, qdv, q_answer, q_comment, master_id, tip) values (${id_int + 1}, '$qText', $price, $qDelay, '$qAnswer', '$qComment', $masterID, $tip)");
 }
 
 Future<void> createCollection({
