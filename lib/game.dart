@@ -31,38 +31,45 @@ Future<int> endGame(
   } catch (_) {
     idInt = 0;
   }
-
+  int winnersCount = 0;
   var topTeam = team1Id;
   if (team1Score > team2Score &&
       team1Score > team3Score &&
       team1Score > team4Score &&
       team1Score > team5Score) {
     topTeam = team1Id;
+    winnersCount+=1;
   }
   if (team2Score > team1Score &&
       team2Score > team3Score &&
       team2Score > team4Score &&
       team2Score > team5Score) {
     topTeam = team1Id;
+    winnersCount+=1;
   }
   if (team3Score > team1Score &&
       team3Score > team2Score &&
       team3Score > team4Score &&
       team3Score > team5Score) {
     topTeam = team1Id;
+    winnersCount+=1;
   }
   if (team4Score > team1Score &&
       team4Score > team2Score &&
       team4Score > team3Score &&
       team4Score > team5Score) {
     topTeam = team1Id;
+    winnersCount+=1;
   }
   if (team5Score > team1Score &&
       team5Score > team2Score &&
       team5Score > team4Score &&
       team5Score > team3Score) {
     topTeam = team1Id;
+    winnersCount+=1;
   }
+
+
   int indexedInt;
   try {
     var gameIndexed = await sql.execute(
@@ -78,7 +85,7 @@ Future<int> endGame(
       case 0:
         await sql.execute(
             'insert into game_indexed (id, team_id, game_id) values(${indexedInt + i + 1}, $team1Id, ${idInt + 1})');
-        if (topTeam == team1Id) {
+        if (topTeam == team1Id && winnersCount < 2) {
           await sql.execute(
               'update users set games=games+1, wins=wins+1,score=score+$team1Score where id=$team1Id');
         } else  {
@@ -87,7 +94,7 @@ Future<int> endGame(
       case 1:
         await sql.execute(
             'insert into game_indexed (id, team_id, game_id) values(${indexedInt + i + 1}, $team2Id, ${idInt + 1})');
-        if (topTeam == team2Id) {
+        if (topTeam == team2Id  && winnersCount < 2) {
           await sql.execute(
               'update users set games=games+1, wins=wins+1, score=score+$team2Score where id=$team2Id');
         } else {
@@ -98,7 +105,7 @@ Future<int> endGame(
           await sql.execute(
               'insert into game_indexed (id, team_id, game_id) values(${indexedInt +
                   i + 1}, $team3Id, ${idInt + 1})');
-          if (topTeam == team3Id && team3Id != '-1') {
+          if (topTeam == team3Id && team3Id != '-1'   && winnersCount < 2) {
             await sql.execute(
                 'update users set games=games+1, wins=wins+1,score=score+$team3Score where id=$team3Id');
           } else {
@@ -111,7 +118,7 @@ Future<int> endGame(
           await sql.execute(
               'insert into game_indexed (id, team_id, game_id) values(${indexedInt +
                   i + 1}, $team4Id, ${idInt + 1})');
-          if (topTeam == team4Id && team4Id != '-1') {
+          if (topTeam == team4Id && team4Id != '-1'  && winnersCount < 2) {
             await sql.execute(
                 'update users set games=games+1, wins=wins+1,score=score+$team4Score where id=$team4Id');
           } else {
@@ -124,7 +131,7 @@ Future<int> endGame(
           await sql.execute(
               'insert into game_indexed (id, team_id, game_id) values(${indexedInt +
                   i + 1}, $team4Id, ${idInt + 1})');
-          if (topTeam == team5Id && team5Id != '-1') {
+          if (topTeam == team5Id && team5Id != '-1'  && winnersCount < 2) {
             await sql.execute(
                 'update users set games=games+1, wins=wins+1,score=score+$team5Score where id=$team5Id');
           } else {
