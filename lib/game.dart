@@ -44,28 +44,28 @@ Future<int> endGame(
       team2Score > team3Score &&
       team2Score > team4Score &&
       team2Score > team5Score) {
-    topTeam = team1Id;
+    topTeam = team2Id;
     winnersCount+=1;
   }
   if (team3Score > team1Score &&
       team3Score > team2Score &&
       team3Score > team4Score &&
       team3Score > team5Score) {
-    topTeam = team1Id;
+    topTeam = team3Id;
     winnersCount+=1;
   }
   if (team4Score > team1Score &&
       team4Score > team2Score &&
       team4Score > team3Score &&
       team4Score > team5Score) {
-    topTeam = team1Id;
+    topTeam = team4Id;
     winnersCount+=1;
   }
   if (team5Score > team1Score &&
       team5Score > team2Score &&
       team5Score > team4Score &&
       team5Score > team3Score) {
-    topTeam = team1Id;
+    topTeam = team5Id;
     winnersCount+=1;
   }
 
