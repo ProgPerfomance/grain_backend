@@ -206,7 +206,7 @@ Future<List> getTeamGames(MySQLConnection sql,id) async {
 
 Future<List> getOwnerGames (MySQLConnection sql,id) async {
   List games = [];
-  final response = await sql.execute("select * from game_indexed where master_id=$id");
+  final response = await sql.execute("select * from game where master_id=$id");
   var gameData = response.rows.first.assoc();
   for(var item in response.rows) {
 
