@@ -20,7 +20,7 @@ Future<int> endGame(
   team3Score = int.parse(team3Score);
   team4Score = int.parse(team4Score);
   team5Score = int.parse(team5Score);
-
+  int winnersCount = 0;
   int idInt;
   try {
     var resul = await sql.execute(
@@ -31,7 +31,7 @@ Future<int> endGame(
   } catch (_) {
     idInt = 0;
   }
-  int winnersCount = 0;
+
   var topTeam = team1Id;
   if (team1Score > team2Score &&
       team1Score > team3Score &&
