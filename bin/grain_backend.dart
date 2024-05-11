@@ -71,5 +71,11 @@ void main(List<String> arguments)async {
     List response = await  getTeamGames(sql,data['id']);
     return Response.ok(jsonEncode(response));
   });
+  router.post('/getTeamInfo', (Request request) async {
+    var json = await request.readAsString();
+    var data = await jsonDecode(json);
+    Map response = await  getTeamInfo(sql,data['id']);
+    return Response.ok(jsonEncode(response));
+  });
   serve(router, '63.251.122.116', 2314);
 }
