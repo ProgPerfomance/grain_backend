@@ -155,11 +155,25 @@ Future<List> getTeamGames(MySQLConnection sql,id) async {
    var team1Row = await sql.execute("select * from users where id = ${gameData['team1_id']}");
    var team2Row = await sql.execute("select * from users where id = ${gameData['team2_id']}");
    var team3;
+   var team4;
+   var team5;
    try{
      var team3Row = await sql.execute("select * from users where id = ${gameData['team3_id']}");
      team3 = team3Row.rows.first.assoc()['name'];
    } catch (e){
      team3 = 'Не играла';
+   }
+   try{
+     var team4Row = await sql.execute("select * from users where id = ${gameData['team4_id']}");
+     team4 = team4Row.rows.first.assoc()['name'];
+   } catch (e){
+     team4 = 'Не играла';
+   }
+   try{
+     var team5Row = await sql.execute("select * from users where id = ${gameData['team5_id']}");
+     team5 = team5Row.rows.first.assoc()['name'];
+   } catch (e){
+     team5 = 'Не играла';
    }
    games.add({
      'id':  gameData['id'],
@@ -173,8 +187,8 @@ Future<List> getTeamGames(MySQLConnection sql,id) async {
      'team1_name': team1Row.rows.first.assoc()['name'],
      'team2_name': team2Row.rows.first.assoc()['name'],
      'team3_name': team3,
-     'team4_name': gameData['team1_id'],
-     'team5_name': gameData['team1_id'],
+     'team4_name': team4,
+     'team5_name': team5,
      'team1_score': gameData['team1_score'],
      'team2_score': gameData['team2_score'],
      'team3_score': gameData['team3_score'],
