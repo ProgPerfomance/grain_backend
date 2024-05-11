@@ -81,6 +81,7 @@ void main(List<String> arguments)async {
     var json = await request.readAsString();
     var data = await jsonDecode(json);
     List response = await  getOwnerGames(sql,data['id']);
+    print(response);
     return Response.ok(jsonEncode(response));
   });
   serve(router, '63.251.122.116', 2314);
