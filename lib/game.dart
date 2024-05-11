@@ -152,10 +152,9 @@ Future<int> endGame(
 
 Future<List> getTeamGames(MySQLConnection sql,id) async {
   List games = [];
- final response = await sql.execute("select * from game_indexed where team_id=$id");
- for(var item in response.rows) {
-   final gameRow = await sql.execute("select * from games where id = ${item.assoc()['game_id']}");
-   var gameData = gameRow.rows.first.assoc();
+  final response = await sql.execute("select * from games where master_id =$id}");
+ for(var gameRow in response.rows) {
+   var gameData = gameRow.assoc();
    var team1Row = await sql.execute("select * from users where id = ${gameData['team1_id']}");
    var team2Row = await sql.execute("select * from users where id = ${gameData['team2_id']}");
    var team3;
@@ -205,57 +204,17 @@ Future<List> getTeamGames(MySQLConnection sql,id) async {
 }
 
 Future<List> getOwnerGames (MySQLConnection sql,id) async {
+  final reponseRows = await sql.execute('select * from games where master_id = $id');
   List games = [];
-  final response = await sql.execute("select * from game where master_id=$id");
-  var gameData = response.rows.first.assoc();
-  for(var item in response.rows) {
-
-    var team1Row = await sql.execute("select * from users where id = ${gameData['team1_id']}");
-    var team2Row = await sql.execute("select * from users where id = ${gameData['team2_id']}");
-    var team3;
-    var team4;
-    var team5;
-    try{
-      var team3Row = await sql.execute("select * from users where id = ${gameData['team3_id']}");
-      team3 = team3Row.rows.first.assoc()['name'];
-    } catch (e){
-      team3 = 'Не играла';
+  for(var item in reponseRows.rows)
+    {
+      var data = item.assoc();
+      games.add({
+        ''
+      });
     }
-    try{
-      var team4Row = await sql.execute("select * from users where id = ${gameData['team4_id']}");
-      team4 = team4Row.rows.first.assoc()['name'];
-    } catch (e){
-      team4 = 'Не играла';
-    }
-    try{
-      var team5Row = await sql.execute("select * from users where id = ${gameData['team5_id']}");
-      team5 = team5Row.rows.first.assoc()['name'];
-    } catch (e){
-      team5 = 'Не играла';
-    }
-    games.add({
-      'id':  gameData['id'],
-      'date_start': gameData['date_start'],
-      'winner_id': gameData['winner_id'],
-      'team1_id': gameData['team1_id'],
-      'team2_id': gameData['team2_id'],
-      'team3_id': gameData['team3_id'],
-      'team4_id': gameData['team4_id'],
-      'team5_id': gameData['team5_id'],
-      'team1_name': team1Row.rows.first.assoc()['name'],
-      'team2_name': team2Row.rows.first.assoc()['name'],
-      'team3_name': team3,
-      'team4_name': team4,
-      'team5_name': team5,
-      'team1_score': gameData['team1_score'],
-      'team2_score': gameData['team2_score'],
-      'team3_score': gameData['team3_score'],
-      'team4_score': gameData['team4_score'],
-      'team5_score': gameData['team5_score'],
-      'master_id': gameData['master_id'],
-    });
-  }
   return games;
+
 }
 
 
