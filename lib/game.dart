@@ -32,48 +32,44 @@ Future<int> endGame(
     idInt = 0;
   }
 
-  var topTeam = team1Id;
-  if(team1Score == team2Score|| team1Score == team3Score || team1Score == team4Score || team1Score == team5Score || team2Score == team3Score|| team2Score == team4Score || team2Score == team5Score || team3Score == team4Score || team3Score == team5Score || team4Score == team5Score ) {
-    winnersCount = 5;
-    topTeam = '-1';
-  }
-  else {
-    if (team1Score > team2Score &&
-        team1Score > team3Score &&
-        team1Score > team4Score &&
-        team1Score > team5Score) {
+  var topTeam = '-1';
+
+
+    if (team1Score >= team2Score &&
+        team1Score >= team3Score &&
+        team1Score >= team4Score &&
+        team1Score >= team5Score && team1Score != team3Score && team1Score != team5Score && team1Score != team4Score && team1Score != team2Score) {
       topTeam = team1Id;
       winnersCount += 1;
     }
-    if (team2Score > team1Score &&
-        team2Score > team3Score &&
-        team2Score > team4Score &&
-        team2Score > team5Score) {
+    if (team2Score >= team1Score &&
+        team2Score >= team3Score &&
+        team2Score >= team4Score &&
+        team2Score >= team5Score && team2Score != team3Score && team2Score != team5Score && team2Score != team5Score && team2Score != team1Score) {
       topTeam = team2Id;
       winnersCount += 1;
     }
-    if (team3Score > team1Score &&
-        team3Score > team2Score &&
-        team3Score > team4Score &&
-        team3Score > team5Score) {
+    if (team3Score >= team1Score &&
+        team3Score >= team2Score &&
+        team3Score >= team4Score &&
+        team3Score >= team5Score &&team3Score != team4Score && team3Score != team5Score && team3Score != team2Score && team3Score != team1Score) {
       topTeam = team3Id;
       winnersCount += 1;
     }
-    if (team4Score > team1Score &&
-        team4Score > team2Score &&
-        team4Score > team3Score &&
-        team4Score > team5Score) {
+    if (team4Score >= team1Score &&
+        team4Score >= team2Score &&
+        team4Score >= team3Score &&
+        team4Score >= team5Score && team4Score != team3Score && team4Score != team5Score && team4Score != team2Score && team4Score != team1Score) {
       topTeam = team4Id;
       winnersCount += 1;
     }
-    if (team5Score > team1Score &&
-        team5Score > team2Score &&
-        team5Score > team4Score &&
-        team5Score > team3Score) {
+    if (team5Score >= team1Score &&
+        team5Score >= team2Score &&
+        team5Score >= team4Score &&
+        team5Score >= team3Score  && team5Score != team3Score && team5Score != team1Score && team5Score != team4Score && team5Score != team2Score) {
       topTeam = team5Id;
       winnersCount += 1;
     }
-  }
   int indexedInt;
   try {
     var gameIndexed = await sql.execute(
