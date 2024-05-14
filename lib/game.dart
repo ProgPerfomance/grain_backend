@@ -32,7 +32,7 @@ Future<int> endGame(
     idInt = 0;
   }
 
-  var topTeam = '-1';
+  var topTeam = '-3';
 
 
     if (team1Score >= team2Score &&
